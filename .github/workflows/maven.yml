@@ -6,7 +6,6 @@ name: Java CI with Maven in Linux
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
   pull_request:
 
   # Allows you to run this workflow manually from the Actions tab
@@ -43,3 +42,8 @@ jobs:
           mvn -f Myproject/pom.xml
           clean verify
           surefire-report:report-only site:site -DgenerateReports=false
+      - name: Archive JUnit Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: surefire-report-jdk-${{ matrix.java }}
+          path: '**/target/site'
