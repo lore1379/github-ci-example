@@ -43,10 +43,10 @@ jobs:
         run: >
           mvn -f Myproject/pom.xml
           surefire-report:report-only site:site -DgenerateReports=false
-        if: ${{ always() }}
+        if: ${{ failure() }}
       - name: Archive JUnit Report
         uses: actions/upload-artifact@v2
-        if: ${{ always() }}
+        if: ${{ failure() }}
         with:
           name: surefire-report-jdk-${{ matrix.java }}
           path: '**/target/site'
